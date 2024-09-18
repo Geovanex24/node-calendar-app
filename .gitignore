@@ -1,2 +1,9 @@
-node_modules
+# Node modules
+node_modules/
+
+# Environment variables
 .env
+.env.* # Para otros archivos .env con diferentes entornos (por ejemplo, .env.production)
+
+# OS files
+.DS_Store

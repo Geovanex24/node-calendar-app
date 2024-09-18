@@ -24,6 +24,6 @@ app.use(express.static("public")); // Este es el necesario para establecer un di
 // });
 
 // Escuchar peticiones
-app.listen(4000, () => {
-  console.log(`Servidor corriendo en el puerto ${4000}`);
+app.listen(process.env.PORT, () => {
+  console.log(`Servidor corriendo en el puerto ${process.env.PORT}`);
 });
