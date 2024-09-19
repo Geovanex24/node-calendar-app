@@ -6,11 +6,13 @@ const app = express();
 
 // Directorio público
 
-/**
- * app.use => es un middleware, lo que corresponde a una simple función que se ejecuta en el momento en que alguién
- * hace una petición a mi servidor
- */
+// app.use => Es un middleware, una función que se ejecuta cada vez que alguien realiza una petición a mi servidor.
+// Actúa antes de que se realice cualquier otra acción, permitiendo realizar tareas como procesamiento de datos, validaciones o
+// modificaciones a la solicitud o respuesta.
 app.use(express.static("public")); // Este es el necesario para establecer un directorio público
+
+// Lectura y parseo del body
+app.use(express.json()); // Este es el necesario para leer el body de las peticiones
 
 //Rutas
 /**
@@ -18,10 +20,9 @@ app.use(express.static("public")); // Este es el necesario para establecer un di
  * y el contenido recibido del cliente.
  */
 
-// Crear una ruta inicial
-// app.get("/", (req, res) => {
-//   res.json({ ok: true });
-// });
+// ** Auth **
+app.use("/api/auth", require("./routes/auth")); // El contenido exportado de este archivo auth, será habilitado en la ruta /api/auth
+//TODO: CRUD: Eventos // crear, leer, actualizar, eliminar
 
 // Escuchar peticiones
 app.listen(process.env.PORT, () => {
