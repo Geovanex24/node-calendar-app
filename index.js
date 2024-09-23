@@ -1,8 +1,12 @@
 // # Configuración básica de express
 const express = require("express");
+const { dbConnection } = require("./database/config");
 
 // 1. Crear el servidor o apliación de express
 const app = express();
+
+//Conexión a Base de Datos
+dbConnection();
 
 // Directorio público
 
