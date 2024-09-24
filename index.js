@@ -30,7 +30,7 @@ app.use(express.json()); // Este es el necesario para leer el body de las petici
 
 // ** Auth **
 app.use("/api/auth", require("./routes/auth")); // El contenido exportado de este archivo auth, será habilitado en la ruta /api/auth
-//TODO: CRUD: Eventos // crear, leer, actualizar, eliminar
+app.use("/api/events", require("./routes/events"));
 
 // Escuchar peticiones
 app.listen(process.env.PORT, () => {
