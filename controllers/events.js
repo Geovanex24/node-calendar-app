@@ -80,11 +80,46 @@ const updateEvent = async (req, res) => {
   }
 };
 
-const deleteEvent = (req, res) => {
-  res.json({
-    ok: true,
-    msg: "deleteEvent",
-  });
+const deleteEvent = async (req, res) => {
+  const eventId = req.params.id;
+  const uid = req.uid;
+
+  // Validar que el ID tenga un formato válido de MongoDB
+  if (!mongoose.Types.ObjectId.isValid(eventId)) {
+    return res.status(400).json({
+      ok: false,
+      msg: "El ID no es válido",
+    });
+  }
+
+  try {
+    const event = await Event.findById(eventId);
+
+    if (!event) {
+      return res.status(404).json({
+        ok: false,
+        msg: "No se ha encontrado ningún evento con ese id",
+      });
+    }
+    if (event.user.toString() !== uid) {
+      return res.status(401).json({
+        ok: false,
+        msg: "No tienes permiso para eliminar este evento",
+      });
+    }
+
+    await Event.findByIdAndDelete(eventId);
+
+    res.json({
+      ok: true,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      ok: false,
+      msg: "Error al eliminar el evento. Hable con el administrador",
+    });
+  }
 };
 
 module.exports = {
