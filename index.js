@@ -1,4 +1,5 @@
 // # Configuración básica de express
+const path = require("path");
 const express = require("express");
 require("dotenv").config();
 const cors = require("cors");
@@ -32,6 +33,9 @@ app.use(express.json()); // Este es el necesario para leer el body de las petici
 // ** Auth **
 app.use("/api/auth", require("./routes/auth")); // El contenido exportado de este archivo auth, será habilitado en la ruta /api/auth
 app.use("/api/events", require("./routes/events"));
+app.use("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "public/index.html")); // __dirname apunta hacia donde corre la app en dicho momento
+});
 
 // Escuchar peticiones
 app.listen(process.env.PORT, () => {
